@@ -69,17 +69,46 @@ void printLinkList(Node* head)
     Node* p = head->next;
 
     // 遍历
+    cout << "遍历：";
     while (p)
     {
-        cout << "打印数据：" << p->data << endl;
+        cout << p->data << " ";
         p = p->next;
+    }
+    cout << endl;
+}
+
+/**
+ * 🟡删除有序链表的重复结点
+ * @param head 链表头结点
+ */
+void delRep(Node* head)
+{
+    Node* p = head->next;
+    Node* q = NULL;
+
+    while (p->next)
+    {
+        if (p->data == p->next->data)
+        {
+            q = p->next;
+            p->next = q->next;
+            free(q);
+        }
+        else
+        {
+            p = p->next;
+        }
     }
 }
 
 int main()
 {
-    int arr[] = {5, 3, 1, 2};
+    int arr[] = {1, 2, 3, 3};
     Node* head = generate(arr, 4);
+    printLinkList(head);
+
+    delRep(head);
     printLinkList(head);
 
     return 0;
