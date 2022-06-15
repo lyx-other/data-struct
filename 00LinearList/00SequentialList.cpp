@@ -1,3 +1,5 @@
+/** 顺序表相关代码 **/
+
 #include <iostream>
 
 using namespace std;

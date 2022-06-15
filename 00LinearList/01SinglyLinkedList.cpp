@@ -1,3 +1,5 @@
+/** 带头结点的单链表相关代码 **/
+
 #include <iostream>
 
 using namespace std;
