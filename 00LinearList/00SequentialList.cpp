@@ -9,7 +9,7 @@ using namespace std;
  */
 struct OrderList
 {
-    const static int maxSize = 10; // 队列最多可以容纳的数据元素个数
+    const static int maxSize = 20; // 队列最多可以容纳的数据元素个数
     int length = 0; // 数据中元素的个数，也始终是最后一个元素下一个的下标.
     char arr[maxSize]; // 顺序表
 };
@@ -123,14 +123,63 @@ void traverse(OrderList* p)
     cout << endl;
 }
 
+/**
+ * 🟡删除下标i到j的元素
+ * 这不是标准操作，这个操作来自于一道练习题.
+ * @param p    顺序表
+ * @param posi 下标i
+ * @param posj 下标
+ * @return 删除的元素，删除失败返回NULL.
+ */
+char* deleteEles(OrderList*p, int posi, int posj)
+{
+    // 检查可不可以删除
+    if(posi >= posj)
+    {
+        cout << "参数不正确" << endl;
+        return NULL;
+    }
+    if (posi < 0 || posj > p->length-1)
+    {
+        cout << "下标越界" << endl;
+        return NULL;
+    }
+
+    // 缓存下要删除的元素
+    int num = posj - posi + 1;
+    char eleArrDel[num];
+    for (int i = posi; i <= posj; ++i)
+    {
+        eleArrDel[i-posi] = p->arr[i];
+    }
+
+    // 删除元素
+    int l = posj + 1;
+    for (int k = posi; k <= p->length-posj+posi-2; ++k)
+    {
+        if (l <= p->length-1)
+        {
+            p->arr[k] = p->arr[l++]; // 也可以是不变量l p->arr[k] = p->arr[k+posj-posi+1];
+        }
+        else
+        {
+            break;
+        }
+    }
+    p->length = p->length - num;
+
+    return eleArrDel;
+}
+
 int main()
 {
-    char originData[] = {'C', 'D', 'E'};
-    OrderList* p = create(originData, 3);
+    char originData[] = {'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+    OrderList* p = create(originData, 10);
 
-    insertEle(p, '$', 1);
+    traverse(p);
 
-    traverse(NULL);
+    deleteEles(p, 0, 3);
+    traverse(p);
 
     return 0;
 }
