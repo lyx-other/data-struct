@@ -127,12 +127,13 @@ void traverse(OrderList* p, string prompt)
 /**
  * 🟡删除下标i到j的元素
  * 这不是标准操作，这个操作来自于一道练习题.
+ * 方法1
  * @param p    顺序表
  * @param posi 下标i
  * @param posj 下标
  * @return 删除的元素，删除失败返回NULL.
  */
-char* deleteEles(OrderList*p, int posi, int posj)
+char* deleteEles1(OrderList*p, int posi, int posj)
 {
     // 检查可不可以删除
     if(posi >= posj)
@@ -172,13 +173,54 @@ char* deleteEles(OrderList*p, int posi, int posj)
     return eleArrDel;
 }
 
+/**
+ * 🟡删除下标i到j的元素
+ * 这不是标准操作，这个操作来自于一道练习题.
+ * 方法
+ * @param p    顺序表
+ * @param posi 下标i
+ * @param posj 下标
+ * @return 删除的元素，删除失败返回NULL.
+ */
+char* deleteEles2(OrderList*p, int posi, int posj)
+{
+    // 检查可不可以删除
+    if(posi >= posj)
+    {
+        cout << "参数不正确" << endl;
+        return NULL;
+    }
+    if (posi < 0 || posj > p->length-1)
+    {
+        cout << "下标越界" << endl;
+        return NULL;
+    }
+
+    // 缓存下要删除的元素
+    int num = posj - posi + 1;
+    char* eleArrDel = new char[num] ;
+    for (int i = posi; i <= posj; ++i)
+    {
+        eleArrDel[i-posi] = p->arr[i];
+    }
+
+    // 删除元素
+    for (int i = posj+1; i <= p->length-1; ++i)
+    {
+        p->arr[i-num] = p->arr[i];
+    }
+    p->length = p->length - num;
+
+    return eleArrDel;
+}
+
 int main()
 {
     char originData[] = {'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e', 'f', 'g'};
     OrderList* p = create(originData, 10);
     traverse(p, "初始化");
 
-    char* arrDel = deleteEles(p, 0, 3);
+    char* arrDel = deleteEles2(p, 0, 3);
     traverse(p, "删除多个元素");
 
     return 0;
