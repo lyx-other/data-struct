@@ -46,7 +46,7 @@ OrderList* create(char data[], int n)
  * @param pos  插入的位置
  * @return 是否插入成功
  */
-bool insert(OrderList* p, char data, int pos)
+bool insertEle(OrderList* p, char data, int pos)
 {
     // 检查是否可以插入
     if (p->length == p->maxSize)
@@ -71,17 +71,64 @@ bool insert(OrderList* p, char data, int pos)
     return true;
 }
 
+/**
+ * 🟡从顺序表中删除一个元素
+ * @param p   顺序表
+ * @param pos 删除哪个位置的元素
+ * @return 指向删除的元素的指针，删除失败时返回NULL.
+ */
+char* deleteEle(OrderList* p, int pos)
+{
+    // 检查是不是可以删除
+    if (p->length == 0)
+    {
+        cout << "没有元素，不可以删除." << endl;
+        return NULL;
+    }
+    if (pos <= -1 || pos >= p->length)
+    {
+        cout << "越界，不可以删除." << endl;
+        return NULL;
+    }
+
+    // 删除
+    char originEle = p->arr[pos];
+    for (int i = pos; i <= p->length-2 ; ++i)
+    {
+        p->arr[i] = p->arr[i+1];
+    }
+    p->length--;
+    char* originEleP = &originEle;
+    return originEleP;
+}
+
+/**
+ * 🟡遍历顺序表
+ * @param p 顺序表
+ */
+void traverse(OrderList* p)
+{
+    if (!p)
+    {
+        return;
+    }
+
+    cout << "遍历顺序表：";
+    for (int i = 0; i <= p->length-1; ++i)
+    {
+        cout << p->arr[i] << " ";
+    }
+    cout << endl;
+}
+
 int main()
 {
     char originData[] = {'C', 'D', 'E'};
     OrderList* p = create(originData, 3);
 
-    insert(p, '*', 4);
+    insertEle(p, '$', 1);
 
-    for (int i = 0; i <= p->length-1; ++i)
-    {
-        cout << "打印数据：" << p->arr[i] << endl;
-    }
+    traverse(NULL);
 
     return 0;
 }
