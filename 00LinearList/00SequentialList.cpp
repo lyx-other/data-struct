@@ -106,16 +106,17 @@ char* deleteEle(OrderList* p, int pos)
 
 /**
  * 🟡遍历顺序表
- * @param p 顺序表
+ * @param p      顺序表
+ * @param prompt 提示信息
  */
-void traverse(OrderList* p)
+void traverse(OrderList* p, string prompt)
 {
     if (!p)
     {
         return;
     }
 
-    cout << "遍历顺序表：";
+    cout << "遍历顺序表，" << prompt << "：";
     for (int i = 0; i <= p->length-1; ++i)
     {
         cout << p->arr[i] << " ";
@@ -147,7 +148,7 @@ char* deleteEles(OrderList*p, int posi, int posj)
 
     // 缓存下要删除的元素
     int num = posj - posi + 1;
-    char eleArrDel[num];
+    char* eleArrDel = new char[num] ;
     for (int i = posi; i <= posj; ++i)
     {
         eleArrDel[i-posi] = p->arr[i];
@@ -175,11 +176,10 @@ int main()
 {
     char originData[] = {'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e', 'f', 'g'};
     OrderList* p = create(originData, 10);
+    traverse(p, "初始化");
 
-    traverse(p);
-
-    deleteEles(p, 0, 3);
-    traverse(p);
+    char* arrDel = deleteEles(p, 0, 3);
+    traverse(p, "删除多个元素");
 
     return 0;
 }
