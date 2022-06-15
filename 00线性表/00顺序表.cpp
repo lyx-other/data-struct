@@ -8,4 +8,8 @@ int main()
 {
     // 构建顺序表
     int arr[maxSize] = {6, 7, 8, 9};
+
+    cout << "打印数据：" << "test" << endl;
+
+    return 0;
 }
