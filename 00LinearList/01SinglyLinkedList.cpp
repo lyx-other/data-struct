@@ -18,7 +18,7 @@ struct Node
  * 没有元素
  * @return 头指针
  */
-Node* generate()
+Node* createEmpty()
 {
     // 头结点
     Node headNode;
@@ -35,7 +35,7 @@ Node* generate()
  * @param n       第一个参数是数组，数组中元素的个数.
  * @return 头指针
  */
-Node* generate(int dataArr[], int n)
+Node* createByTail(int dataArr[], int n)
 {
     // 准备工作
     Node* r = NULL; // r指针始终指向单链表的最后一个结点
@@ -60,11 +60,44 @@ Node* generate(int dataArr[], int n)
 }
 
 /**
+ * 🟢创建带头结点的单链表.
+ * 头插法
+ * 手动输入元素
+ * @return
+ */
+Node* createByHead()
+{
+    // 元素结点个数
+    int num = 0;
+    cout << "请输入元素个数：";
+    cin >> num;
+
+    // 创建头结点
+    Node* head = (Node*)malloc(sizeof(Node));
+    head->next = NULL;
+
+    // 添加元素结点
+    Node* p = NULL;
+    for (int i = 1; i <= num; ++i)
+    {
+        p = (Node*)malloc(sizeof(Node));
+        p->next = NULL;
+        cout << "请输入第 " << i << " 个元素：";
+        cin >> p->data;
+
+        p->next = head->next;
+        head->next = p;
+    }
+
+    return head;
+}
+
+/**
  * 🟡遍历带头结点的单链表
  * @param head   head指针
  * @param prompt 提示信息
  */
-void printLinkList(Node* head, string prompt)
+void traverse(Node* head, string prompt)
 {
     // 工作指针p，指向数据元素结点.
     Node* p = head->next;
@@ -83,7 +116,7 @@ void printLinkList(Node* head, string prompt)
  * 🟡删除有序链表的重复结点
  * @param head 链表头结点
  */
-void delRep(Node* head)
+void delRepeatedEle(Node* head)
 {
     Node* p = head->next;
     Node* q = NULL;
@@ -183,17 +216,51 @@ Node* split2(Node* head)
     return newHead;
 }
 
+/**
+ * 🟡练习题，创建单链表.
+ * 要求：https://i.imgur.com/djtSg0c.png
+ * @return 创建的单链表.
+ */
+Node* createNoRepeated()
+{
+    // 数据元素个数
+    int n;
+    cout << "请输入数据元素个数：";
+    cin >> n;
+
+    // 创建头结点
+    Node* head = (Node*)malloc(sizeof(Node));
+    head->next = NULL;
+
+    // 工作指针
+    Node* r = head; // 指向最后一个数据元素
+    Node* q = NULL; // 指向要插入的结点
+
+    // 插入元素
+    int numInput;
+    for (int i = 1; i <= n; ++i)
+    {
+        cout << "请输入第 " << i << " 个元素：";
+        cin >> numInput;
+        if (numInput != r->data)
+        {
+            q = (Node*)malloc(sizeof(Node));
+            q->next = NULL;
+            q->data = numInput;
+
+            r->next = q;
+            r = q;
+        }
+    }
+
+    return head;
+}
+
 int main()
 {
     // 创建带头结点的单链表
-    int arr[] = {1, 2, 3, 4, 5, 6, 7 , 8};
-    Node* head = generate(arr, 8);
-    printLinkList(head, "创建完成");
-
-    // 拆分单链表
-    Node* newHead = split2(head);
-    printLinkList(head, "拆分后");
-    printLinkList(newHead, "拆分出来的");
+    Node* head = createNoRepeated();
+    traverse(head, "初始化单链表：");
 
     return 0;
 }
