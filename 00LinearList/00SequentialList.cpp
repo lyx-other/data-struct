@@ -20,7 +20,7 @@ struct OrderList
  * @param n    第一个参数元素的个数
  * @return 顺序表对象的指针
  */
-OrderList* create(char data[], int n)
+OrderList* create1(char data[], int n)
 {
     // 申请内存空间
     OrderList* p = (OrderList*)malloc(sizeof(OrderList));
@@ -36,6 +36,31 @@ OrderList* create(char data[], int n)
     for (int i = 0; i <= n-1; ++i)
     {
         p->arr[i] = data[i];
+    }
+
+    return p;
+}
+
+/**
+ * 🟢创建顺序表，通过键盘输入.
+ * @return 顺序表对象的指针
+ */
+OrderList* create2()
+{
+    OrderList* p = (OrderList*)malloc(sizeof(OrderList));
+
+    cout << "请输入元素个数：";
+    cin >> p->length;
+
+    if (p->length > p->maxSize)
+    {
+        cout << "创建顺序表失败，元素个数超过最大长度." << endl;
+        return NULL;
+    }
+    for (int i = 0; i <= p->length-1; ++i)
+    {
+        cout << "请输入 " << i << " 号位置元素：";
+        cin >> p->arr[i];
     }
 
     return p;
@@ -113,6 +138,7 @@ void traverse(OrderList* p, string prompt)
 {
     if (!p)
     {
+        cout << "遍历失败，顺序表中没有元素." << endl;
         return;
     }
 
@@ -216,12 +242,8 @@ char* deleteEles2(OrderList*p, int posi, int posj)
 
 int main()
 {
-    char originData[] = {'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e', 'f', 'g'};
-    OrderList* p = create(originData, 10);
+    OrderList* p = create2();
     traverse(p, "初始化");
-
-    char* arrDel = deleteEles2(p, 0, 3);
-    traverse(p, "删除多个元素");
 
     return 0;
 }
