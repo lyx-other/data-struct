@@ -102,14 +102,56 @@ void delRep(Node* head)
     }
 }
 
+/**
+ * 🟡拆分单链表
+ * 将链表中的偶数结点全拿走，形成一个新的链表.
+ * 原选的链表剩下的结点还保持原先的相对顺序.
+ * @param head 原先的链表
+ * @return 新的链表
+ */
+Node* split(Node* head)
+{
+    // 工作指针
+    Node* p = head;
+    Node* q = head->next;
+
+    // 新的链表
+    Node* newHead = (Node*)malloc(sizeof(Node));
+    Node* r = newHead;
+
+    // 进行操作
+    while (q)
+    {
+        if (q->data % 2 == 0)
+        {
+            p->next = q->next; // 删除这个结点
+
+            r->next = q; // 将删除的结点添加到新的链表上
+            q->next = NULL;
+            r = q;
+
+            q = p->next; // q移动到删除的结点下个结点上
+        }
+        else
+        {
+            q = q->next;
+            p = p->next;
+        }
+    }
+
+    return newHead;
+}
+
 int main()
 {
+    // 创建带头结点的单链表
     int arr[] = {1, 2, 3, 3};
     Node* head = generate(arr, 4);
     printLinkList(head);
 
-    delRep(head);
-    printLinkList(head);
+    // 拆分单链表
+    Node* newHead = split(head);
+    printLinkList(newHead);
 
     return 0;
 }
