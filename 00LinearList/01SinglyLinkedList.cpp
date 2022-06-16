@@ -117,6 +117,7 @@ Node* split(Node* head)
 
     // 新的链表
     Node* newHead = (Node*)malloc(sizeof(Node));
+    newHead->next = NULL;
     Node* r = newHead;
 
     // 进行操作
