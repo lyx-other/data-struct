@@ -103,13 +103,13 @@ void delRep(Node* head)
 }
 
 /**
- * 🟡拆分单链表
+ * 🟡拆分单链表，自己写的方法.
  * 将链表中的偶数结点全拿走，形成一个新的链表.
  * 原选的链表剩下的结点还保持原先的相对顺序.
  * @param head 原先的链表
  * @return 新的链表
  */
-Node* split(Node* head)
+Node* split1(Node* head)
 {
     // 工作指针
     Node* p = head;
@@ -141,6 +141,44 @@ Node* split(Node* head)
     }
 
     return newHead;
+}
+
+/**
+ * 🟡拆分单链表，教程给的方法.
+ * 将链表中的偶数结点全拿走，形成一个新的链表.
+ * 原选的链表剩下的结点还保持原先的相对顺序.
+ * @param head 原先的链表
+ * @return 新的链表
+ */
+Node* split2(Node* head)
+{
+    // 工作指针
+    Node* p = NULL;
+    Node* q = NULL;
+    Node* r = NULL;
+
+    // 新链表
+    Node* newHead = (Node*)malloc(sizeof(Node));
+    newHead->next = NULL;
+    r = newHead;
+    p = head;
+
+    // 操作
+    while (p->next)
+    {
+        if (p->next->data % 2 == 0)
+        {
+            q = p->next;
+            p->next = q->next;
+            q->next = NULL;
+            r->next = q;
+            r = q;
+        }
+        else
+        {
+            p = p->next;
+        }
+    }
 }
 
 int main()
