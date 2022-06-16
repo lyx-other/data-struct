@@ -61,15 +61,16 @@ Node* generate(int dataArr[], int n)
 
 /**
  * 🟡遍历带头结点的单链表
- * @param head head指针
+ * @param head   head指针
+ * @param prompt 提示信息
  */
-void printLinkList(Node* head)
+void printLinkList(Node* head, string prompt)
 {
     // 工作指针p，指向数据元素结点.
     Node* p = head->next;
 
     // 遍历
-    cout << "遍历：";
+    cout << "遍历，" << prompt << "：";
     while (p)
     {
         cout << p->data << " ";
@@ -184,13 +185,14 @@ Node* split2(Node* head)
 int main()
 {
     // 创建带头结点的单链表
-    int arr[] = {1, 2, 3, 3};
-    Node* head = generate(arr, 4);
-    printLinkList(head);
+    int arr[] = {1, 2, 3, 4, 5, 6, 7 , 8};
+    Node* head = generate(arr, 8);
+    printLinkList(head, "创建完成");
 
     // 拆分单链表
-    Node* newHead = split(head);
-    printLinkList(newHead);
+    Node* newHead = split1(head);
+    printLinkList(head, "拆分后");
+    printLinkList(newHead, "拆分出来的");
 
     return 0;
 }
