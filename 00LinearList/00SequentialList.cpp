@@ -20,7 +20,7 @@ struct OrderList
  * @param n    第一个参数元素的个数
  * @return 顺序表对象的指针
  */
-OrderList* create1(char data[], int n)
+OrderList* createByParameter(char data[], int n)
 {
     // 申请内存空间
     OrderList* p = (OrderList*)malloc(sizeof(OrderList));
@@ -45,7 +45,7 @@ OrderList* create1(char data[], int n)
  * 🟢创建顺序表，通过键盘输入.
  * @return 顺序表对象的指针
  */
-OrderList* create2()
+OrderList* createByInput()
 {
     OrderList* p = (OrderList*)malloc(sizeof(OrderList));
 
@@ -104,7 +104,7 @@ bool insertEle(OrderList* p, char data, int pos)
  * @param pos 删除哪个位置的元素
  * @return 指向删除的元素的指针，删除失败时返回NULL.
  */
-char* deleteEle(OrderList* p, int pos)
+char* delEle(OrderList* p, int pos)
 {
     // 检查是不是可以删除
     if (p->length == 0)
@@ -159,7 +159,7 @@ void traverse(OrderList* p, string prompt)
  * @param posj 下标
  * @return 删除的元素，删除失败返回NULL.
  */
-char* deleteEles1(OrderList*p, int posi, int posj)
+char* delEles1(OrderList*p, int posi, int posj)
 {
     // 检查可不可以删除
     if(posi >= posj)
@@ -202,13 +202,13 @@ char* deleteEles1(OrderList*p, int posi, int posj)
 /**
  * 🟡删除下标i到j的元素
  * 这不是标准操作，这个操作来自于一道练习题.
- * 方法
+ * 方法2
  * @param p    顺序表
  * @param posi 下标i
  * @param posj 下标
  * @return 删除的元素，删除失败返回NULL.
  */
-char* deleteEles2(OrderList*p, int posi, int posj)
+char* delEles2(OrderList*p, int posi, int posj)
 {
     // 检查可不可以删除
     if(posi >= posj)
@@ -242,7 +242,7 @@ char* deleteEles2(OrderList*p, int posi, int posj)
 
 int main()
 {
-    OrderList* p = create2();
+    OrderList* p = createByInput();
     traverse(p, "初始化");
 
     return 0;
