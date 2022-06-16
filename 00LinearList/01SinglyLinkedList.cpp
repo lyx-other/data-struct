@@ -180,6 +180,7 @@ Node* split2(Node* head)
             p = p->next;
         }
     }
+    return newHead;
 }
 
 int main()
@@ -190,7 +191,7 @@ int main()
     printLinkList(head, "创建完成");
 
     // 拆分单链表
-    Node* newHead = split1(head);
+    Node* newHead = split2(head);
     printLinkList(head, "拆分后");
     printLinkList(newHead, "拆分出来的");
 
