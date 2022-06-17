@@ -214,34 +214,14 @@ char* deleteEles2(OrderList*p, int posi, int posj)
     return eleArrDel;
 }
 
-/**
- * 🟡返转顺序表
- * 前后各一个“指针”，不断交换两个位置的元素.
- * 偶数个数列和奇数个元素，结束循环的条件是统一的，不需要分情况写两套代码.
- * @param p
- */
-void reversal(OrderList* p)
-{
-    int left = 0;
-    int right = p->length - 1;
-
-    int temp;
-    for (; left < right; ++left, --right) // 只要 left < right 就能往下进行
-    {
-        temp = p->arr[left];
-        p->arr[left] = p->arr[right];
-        p->arr[right] = temp;
-    }
-}
-
 int main()
 {
-    char originData[] = {'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e', 'f'};
-    OrderList* p = create(originData, 9);
+    char originData[] = {'C', 'D', 'E', 'a', 'b', 'c', 'd', 'e', 'f', 'g'};
+    OrderList* p = create(originData, 10);
     traverse(p, "初始化");
 
-    reversal(p);
-    traverse(p, "翻转后");
+    char* arrDel = deleteEles2(p, 0, 3);
+    traverse(p, "删除多个元素");
 
     return 0;
 }
