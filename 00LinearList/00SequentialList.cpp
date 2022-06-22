@@ -67,7 +67,7 @@ OrderList* createByInput()
 }
 
 /**
- * 🟡向顺序表中插入一个元素
+ * 🟡标准操作，向顺序表中插入一个元素.
  * @param p    顺序表
  * @param data 要插入的数据
  * @param pos  插入的位置
@@ -99,7 +99,7 @@ bool insertEle(OrderList* p, char data, int pos)
 }
 
 /**
- * 🟡从顺序表中删除一个元素
+ * 🟡标准操作，从顺序表中删除一个元素.
  * @param p   顺序表
  * @param pos 删除哪个位置的元素
  * @return 指向删除的元素的指针，删除失败时返回NULL.
@@ -130,7 +130,7 @@ char* delEle(OrderList* p, int pos)
 }
 
 /**
- * 🟡遍历顺序表
+ * 🟡标准操作，遍历顺序表.
  * @param p      顺序表
  * @param prompt 提示信息
  */
@@ -151,8 +151,7 @@ void traverse(OrderList* p, string prompt)
 }
 
 /**
- * 🟡删除下标i到j的元素
- * 这不是标准操作，这个操作来自于一道练习题.
+ * 🔴练习题，删除下标i到j的元素.
  * 方法1
  * @param p    顺序表
  * @param posi 下标i
@@ -200,8 +199,7 @@ char* delEles1(OrderList*p, int posi, int posj)
 }
 
 /**
- * 🟡删除下标i到j的元素
- * 这不是标准操作，这个操作来自于一道练习题.
+ * 🔴练习题，删除下标i到j的元素.
  * 方法2
  * @param p    顺序表
  * @param posi 下标i
@@ -241,7 +239,7 @@ char* delEles2(OrderList*p, int posi, int posj)
 }
 
 /**
- * 🟡返转顺序表
+ * 🟡标准操作，返转顺序表.
  * 前后各一个“指针”，不断交换两个位置的元素.
  * 偶数个数列和奇数个元素，结束循环的条件是统一的，不需要分情况写两套代码.
  * @param p
