@@ -213,16 +213,17 @@ char* getMaximum(OrderList* p)
     }
 
     // 取最大值
-    char maximum = p->arr[0];
+    char* maximumP = (char*)malloc(sizeof(char));
+    *maximumP = p->arr[0];
     for (int i = 1; i <= p->length-1; ++i)
     {
-        if (p->arr[i] > maximum)
+        if (p->arr[i] > *maximumP)
         {
-            maximum = p->arr[i];
+            *maximumP = p->arr[i];
         }
     }
 
-    return &maximum;
+    return maximumP;
 }
 
 /**
@@ -328,14 +329,15 @@ void moveToP(OrderList* orderList, int p)
 
 int main()
 {
-    char arr[5] = {'a', 'b', 'f', 'd', 'e'};
+    char arr[5] = {'a', 'b', 'f', 'k', 'e'};
     OrderList* p = createByParameter(arr, 5);
     traverse(p, "初始化");
 
     char* maxP = getMaximum(p);
-    cout << "打印数据：" << p << endl;
-    char maximum = *maxP;
-    cout << "打印数据：" << maxP << endl;
+    if (maxP)
+    {
+        cout << "打印数据：" << *maxP << endl;
+    }
 
     return 0;
 }
