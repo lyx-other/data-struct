@@ -151,6 +151,54 @@ void traverse(OrderList* p, string prompt)
 }
 
 /**
+ * 🟡标准操作，返转顺序表.
+ * 前后各一个“指针”，不断交换两个位置的元素.
+ * 偶数个数列和奇数个元素，结束循环的条件是统一的，不需要分情况写两套代码.
+ * 这里真写了，没有调用反转i到j的函数.
+ * @param p
+ */
+void reversal(OrderList* p)
+{
+    int left = 0;
+    int right = p->length - 1;
+
+    int temp;
+    for (; left < right; ++left, --right) // 只要 left < right 就能往下进行
+    {
+        temp = p->arr[left];
+        p->arr[left] = p->arr[right];
+        p->arr[right] = temp;
+    }
+}
+
+/**
+ * 🟡反转顺序表下票[i,j]的元素
+ * @param p    顺序表
+ * @param posi i
+ * @param posj j
+ */
+void reversal(OrderList* p, int posi, int posj)
+{
+    // 检查是否可以反转
+    if (posj < posi || posj > p->length - 1 || posi < 0)
+    {
+        cout << "下标不符合要求" << endl;
+    }
+
+    // 反转
+    char temp;
+    while (posi < posj)
+    {
+        temp = p->arr[posi];
+        p->arr[posi] = p->arr[posj];
+        p->arr[posj] = temp;
+
+        posi++;
+        posj--;
+    }
+}
+
+/**
  * 🔴练习题，删除下标i到j的元素.
  * 方法1
  * @param p    顺序表
@@ -239,32 +287,26 @@ char* delEles2(OrderList*p, int posi, int posj)
 }
 
 /**
- * 🟡标准操作，返转顺序表.
- * 前后各一个“指针”，不断交换两个位置的元素.
- * 偶数个数列和奇数个元素，结束循环的条件是统一的，不需要分情况写两套代码.
- * @param p
+ * 🔴循环左移p个位置
+ * 要求：https://i.imgur.com/NtAd9sH.png
+ * @param orderList 顺序表
+ * @param p         p个位置
  */
-void reversal(OrderList* p)
+void moveToP(OrderList* orderList, int p)
 {
-    int left = 0;
-    int right = p->length - 1;
-
-    int temp;
-    for (; left < right; ++left, --right) // 只要 left < right 就能往下进行
-    {
-        temp = p->arr[left];
-        p->arr[left] = p->arr[right];
-        p->arr[right] = temp;
-    }
+    reversal(orderList, 0, p-1);
+    reversal(orderList, p, orderList->length-1);
+    reversal(orderList);
 }
 
 int main()
 {
-    OrderList* p = createByInput();
+    char arr[5] = {'a', 'b', 'c', 'd', 'e'};
+    OrderList* p = createByParameter(arr, 5);
     traverse(p, "初始化");
 
-    reversal(p);
-    traverse(p, "反转后");
+    moveToP(p, 1);
+    traverse(p, "反转");
 
     return 0;
 }
