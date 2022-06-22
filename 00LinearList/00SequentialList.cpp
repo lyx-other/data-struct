@@ -213,7 +213,7 @@ char* getMaximum(OrderList* p)
     }
 
     // 取最大值
-    char* maximumP = (char*)malloc(sizeof(char));
+    char* maximumP = (char*)malloc(sizeof(char)); // C++返回指针需要申请内存空间，不能直接创建一个变量然后取地址返回.
     *maximumP = p->arr[0];
     for (int i = 1; i <= p->length-1; ++i)
     {
