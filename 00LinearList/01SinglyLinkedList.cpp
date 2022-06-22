@@ -300,13 +300,59 @@ Node* createNoRepeated()
     return head;
 }
 
+/**
+ * 🔴练习题
+ * 要求：https://i.imgur.com/7iCeai2.png
+ * 构建链表：https://leeyx.notion.site/7ac42e4fe8234c5a89be5ef96c2eafd9
+ * @param str1 第一个链表
+ * @param str2 第二个链表
+ * @return 指针
+ */
+Node* getSamePlace(Node* str1, Node* str2)
+{
+    Node* str1p = str1;
+    Node* str2p = str2;
+
+    while (str1p->next)
+    {
+        str1p = str1p->next;
+        while (str2p->next)
+        {
+            str2p = str2p->next;
+            if (str1p == str2p)
+            {
+                return str1p;
+            }
+        }
+        str2p = str2;
+    }
+
+    return NULL;
+}
+
 int main()
 {
     // 创建带头结点的单链表
-    Node* head = createNoRepeated();
-    traverse(head, "初始化单链表：");
+    int common[2] = {7, 8};
+    Node* com = createByTail(common, 2);
 
-    cout << "打印数据：" << getMinimum(head) << endl;
+    int arr1[2] = {1, 2};
+    Node* str1 = createByTail(arr1, 2);
+
+    int arr2[3] = {3, 4, 5};
+    Node* str2 = createByTail(arr2, 3);
+
+    str1->next->next->next = com->next;
+    str2->next->next->next->next = com->next;
+    free(com);
+
+    traverse(str1, "初始化单链表1：");
+    traverse(str2, "初始化单链表2：");
+
+
+    Node* place = getSamePlace(str1, str2);
+    Node el = *place;
+    cout << "打印数据：" << el.data << endl;
 
     return 0;
 }
