@@ -70,11 +70,42 @@ void traverse(Node* head, string prompt)
     cout << endl;
 }
 
+/**
+ * 🔴练习题
+ * https://i.imgur.com/7FozOs9.png
+ * @param head 双链表
+ */
+void maxPlace(Node* head)
+{
+    // 找到最的元素
+    Node* max = head->next;
+    Node* p = head->next;
+    while (p->next)
+    {
+        p = p->next;
+        if (p->data > max->data)
+        {
+            max = p;
+        }
+    }
+
+    // 进行移动
+    max->pre->next = max->next;
+    max->next->pre = max->pre;
+    max->next = head->next;
+    head->next->pre = max;
+    head->next = max;
+    max->pre = head;
+}
+
 int main()
 {
     // 创建带头结点的单链表
     Node* head = createByInput();
     traverse(head, "初始化单链表");
+
+    maxPlace(head);
+    traverse(head, "操作过后");
 
     return 0;
 }
