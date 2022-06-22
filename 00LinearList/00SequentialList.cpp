@@ -199,6 +199,33 @@ void reversal(OrderList* p, int posi, int posj)
 }
 
 /**
+ * 🟡取无序顺序表最大值.
+ * @param p 顺序表
+ * @return 指向最大值的地址，没有的话返回NULL.
+ */
+char* getMaximum(OrderList* p)
+{
+    // 检查
+    if (p->length < 1)
+    {
+        cout << "列表无元素." << endl;
+        return NULL;
+    }
+
+    // 取最大值
+    char maximum = p->arr[0];
+    for (int i = 1; i <= p->length-1; ++i)
+    {
+        if (p->arr[i] > maximum)
+        {
+            maximum = p->arr[i];
+        }
+    }
+
+    return &maximum;
+}
+
+/**
  * 🔴练习题，删除下标i到j的元素.
  * 方法1
  * @param p    顺序表
@@ -301,12 +328,14 @@ void moveToP(OrderList* orderList, int p)
 
 int main()
 {
-    char arr[5] = {'a', 'b', 'c', 'd', 'e'};
+    char arr[5] = {'a', 'b', 'f', 'd', 'e'};
     OrderList* p = createByParameter(arr, 5);
     traverse(p, "初始化");
 
-    moveToP(p, 1);
-    traverse(p, "反转");
+    char* maxP = getMaximum(p);
+    cout << "打印数据：" << p << endl;
+    char maximum = *maxP;
+    cout << "打印数据：" << maxP << endl;
 
     return 0;
 }
