@@ -256,11 +256,37 @@ Node* createNoRepeated()
     return head;
 }
 
+/**
+ * 🟡反转单链表[p->next, q]的部分.
+ * 用工作指针t，一个一个的拎着往后走，直到最后一个到最前边来.
+ * @param head 单链表
+ * @param p    p
+ * @param q    q
+ */
+void reversal(Node* head, Node* p, Node* q)
+{
+    // 工作指针
+    Node* t = NULL;
+
+    // 反转
+    while (p->next != q)
+    {
+        t = p->next;
+        p->next = t->next;
+        t->next = q->next;
+        q->next = t;
+    }
+}
+
 int main()
 {
     // 创建带头结点的单链表
     Node* head = createNoRepeated();
     traverse(head, "初始化单链表：");
+
+    // 反转
+    reversal(head, head->next, head->next->next->next->next);
+    traverse(head, "返转单链表：");
 
     return 0;
 }
