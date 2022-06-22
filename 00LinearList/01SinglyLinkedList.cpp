@@ -302,7 +302,7 @@ Node* createNoRepeated()
 }
 
 /**
- * 🔴练习题
+ * 🔴练习题，方法1自己写的.
  * 要求：https://i.imgur.com/7iCeai2.png
  * 构建链表：https://leeyx.notion.site/7ac42e4fe8234c5a89be5ef96c2eafd9
  * @param str1 第一个链表
@@ -331,6 +331,14 @@ Node* getSamePlace1(Node* str1, Node* str2)
     return NULL;
 }
 
+/**
+ * 🔴练习题，方法2教程给的.
+ * 要求：https://i.imgur.com/7iCeai2.png
+ * 构建链表：https://leeyx.notion.site/7ac42e4fe8234c5a89be5ef96c2eafd9
+ * @param str1 第一个链表
+ * @param str2 第二个链表
+ * @return 指针
+ */
 Node* getSamePlace2(Node* str1, Node* str2)
 {
     // 计算两个链表的长度差
