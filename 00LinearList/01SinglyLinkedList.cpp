@@ -1,6 +1,7 @@
 /** 带头结点的单链表相关代码 **/
 
 #include <iostream>
+#include "math.h"
 
 using namespace std;
 
@@ -308,7 +309,7 @@ Node* createNoRepeated()
  * @param str2 第二个链表
  * @return 指针
  */
-Node* getSamePlace(Node* str1, Node* str2)
+Node* getSamePlace1(Node* str1, Node* str2)
 {
     Node* str1p = str1;
     Node* str2p = str2;
@@ -327,6 +328,57 @@ Node* getSamePlace(Node* str1, Node* str2)
         str2p = str2;
     }
 
+    return NULL;
+}
+
+Node* getSamePlace2(Node* str1, Node* str2)
+{
+    // 计算两个链表的长度差
+    int str1Length = 0;
+    int str2Length = 0;
+    Node* str1p = str1;
+    Node* str2p = str2;
+    while (str1p)
+    {
+        str1Length++;
+        str1p = str1p->next;
+    }
+    while (str2p)
+    {
+        str2Length++;
+        str2p = str2p->next;
+    }
+    int num = abs(str2Length - str1Length);
+
+    // 移动指针
+    if(str1Length > str2Length)
+    {
+        for (int i = 1; i <= num; ++i)
+        {
+            str1p = str1->next;
+        }
+        str2p = str2;
+    }
+    else if (str1Length < str2Length)
+    {
+        for (int i = 1; i <= num; ++i)
+        {
+            str2p = str2->next;
+        }
+        str1p = str1;
+    }
+
+    // 找相同的
+    while (str1p->next)
+    {
+        str1p = str1p->next;
+        str2p = str2p->next;
+
+        if (str1p == str2p)
+        {
+            return str1p;
+        }
+    }
     return NULL;
 }
 
@@ -350,7 +402,7 @@ int main()
     traverse(str2, "初始化单链表2：");
 
 
-    Node* place = getSamePlace(str1, str2);
+    Node* place = getSamePlace2(str1, str2);
     Node el = *place;
     cout << "打印数据：" << el.data << endl;
 
