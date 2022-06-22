@@ -89,9 +89,14 @@ void maxPlace(Node* head)
         }
     }
 
-    // 进行移动
+    // 拿出最大的结点
     max->pre->next = max->next;
-    max->next->pre = max->pre;
+    if (max->next)
+    {
+        max->next->pre = max->pre;
+    }
+
+    // 移到最前边
     max->next = head->next;
     head->next->pre = max;
     head->next = max;
