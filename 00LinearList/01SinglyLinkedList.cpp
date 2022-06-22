@@ -135,6 +135,28 @@ void reversal(Node* head, Node* p, Node* q)
 }
 
 /**
+ * 取无充单链表的最小值
+ * @param head 单链表
+ * @return 最小值
+ */
+int getMinimum(Node* head)
+{
+    int minimum = head->next->data;
+
+    Node* p = head->next;
+    while (p->next)
+    {
+        p = p->next;
+        if (p->data < minimum)
+        {
+            minimum = p->data;
+        }
+    }
+
+    return minimum;
+}
+
+/**
  * 🔴练习题，删除有序链表的重复结点.
  * @param head 链表头结点
  */
@@ -284,9 +306,7 @@ int main()
     Node* head = createNoRepeated();
     traverse(head, "初始化单链表：");
 
-    // 反转
-    reversal(head, head->next, head->next->next->next->next);
-    traverse(head, "返转单链表：");
+    cout << "打印数据：" << getMinimum(head) << endl;
 
     return 0;
 }
