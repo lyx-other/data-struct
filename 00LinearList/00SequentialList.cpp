@@ -327,6 +327,13 @@ void moveToP(OrderList* orderList, int p)
     reversal(orderList);
 }
 
+/**
+ * 🟡归并
+ * 将两个有序(从小到大)的顺序表合并为一个.
+ * @param arr1 第一个顺序表
+ * @param arr2 第二个顺序表
+ * @return 合并成的顺序表
+ */
 OrderList* merge(OrderList* arr1, OrderList* arr2)
 {
     // 准备工作，创建新顺序表，创建工作指针
