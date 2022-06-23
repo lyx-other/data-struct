@@ -327,17 +327,56 @@ void moveToP(OrderList* orderList, int p)
     reversal(orderList);
 }
 
+OrderList* merge(OrderList* arr1, OrderList* arr2)
+{
+    // 准备工作，创建新顺序表，创建工作指针
+    OrderList* newList = (OrderList*)malloc(sizeof(OrderList));
+    int p1 = 0;
+    int p2 = 0;
+    int k = 0;
+
+    // 归并
+    while (p1 <= arr1->length-1 && p2 <= arr2->length-1)
+    {
+        if (arr1->arr[p1] < arr2->arr[p2])
+        {
+            newList->arr[k] = arr1->arr[p1];
+            k++;
+            p1++;
+        }
+        else
+        {
+            newList->arr[k] = arr2->arr[p2];
+            k++;
+            p2++;
+        }
+    }
+    while (p1 <= arr1->length-1) // 第1个还有剩下的
+    {
+        newList->arr[k] = arr1->arr[p1];
+        k++;
+        p1++;
+    }
+    while (p2 <= arr2->length-1) // 第2个还有剩下的
+    {
+        newList->arr[k] = arr2->arr[p2];
+        k++;
+        p2++;
+    }
+    newList->length = arr1->length + arr2->length;
+    return newList;
+}
+
 int main()
 {
-    char arr[5] = {'a', 'b', 'f', 'k', 'e'};
-    OrderList* p = createByParameter(arr, 5);
-    traverse(p, "初始化");
+    char arr1[5] = {'1', '4', '6', '7', '8'};
+    char arr2[3] = {'2', '3', '5'};
+    OrderList* l1 = createByParameter(arr1, 5);
+    OrderList* l2 = createByParameter(arr2, 3);
 
-    char* maxP = getMaximum(p);
-    if (maxP)
-    {
-        cout << "打印数据：" << *maxP << endl;
-    }
+    OrderList* newL = merge(l1, l2);
+
+    traverse(newL, "归并");
 
     return 0;
 }
