@@ -392,12 +392,13 @@ Node* getSamePlace2(Node* str1, Node* str2)
 
 /**
  * 🟡归并
- * 将两个有序(从小到大)的顺序表合并为一个.
+ * 将两个有序(从小到大)的顺序表合并为一个,
+ * 合并后还是从小到大.
  * @param h1 单链表1
  * @param h2 单链表2
  * @return 归并成的单链表
  */
-Node* merge(Node* h1, Node* h2)
+Node* merge1(Node* h1, Node* h2)
 {
     Node* p1 = h1->next;
     Node* p2 = h2->next;
@@ -424,6 +425,56 @@ Node* merge(Node* h1, Node* h2)
     return h1;
 }
 
+/**
+ * 🟡归并
+ * 将两个有序(从小到大)的顺序表合并为一个,
+ * 合并后是从大到小.
+ * @param h1 单链表1
+ * @param h2 单链表2
+ * @return 归并成的单链表
+ */
+Node* merge2(Node* h1, Node* h2)
+{
+    Node* p1 = h1->next; // 第一个单链工作指针
+    Node* p2 = h2->next; // 第二个单链工作指针
+    Node* q = NULL; // 用于记下当前的结点，防止断链.
+    Node* newHead = (Node*)malloc(sizeof(Node)); // 前的单链表
+
+    while (p1 && p2)
+    {
+        if (p1->data < p2->data)
+        {
+            q = p1;
+            p1 = p1->next;
+
+            q->next = newHead->next;
+            newHead->next = q;
+        }
+        else
+        {
+            q = p2;
+            p2 = p2->next;
+
+            q->next = newHead->next;
+            newHead->next = q;
+        }
+    }
+
+    Node* k = p1 ? p1 : p2;
+
+    while (k)
+    {
+        q = k;
+        k = k->next;
+        q->next = newHead->next;
+        newHead->next = q;
+    }
+
+    free(h1);
+    free(h2);
+    return newHead;
+}
+
 int main()
 {
     int arr1[2] = {1, 6};
@@ -432,8 +483,8 @@ int main()
     int arr2[3] = {0, 4, 5};
     Node* str2 = createByTail(arr2, 3);
 
-    Node* newStr = merge(str1, str2);
-    traverse(newStr, "归并后：");
+    Node* newStr = merge2(str1, str2);
+    traverse(newStr, "归并后");
 
     return 0;
 }
