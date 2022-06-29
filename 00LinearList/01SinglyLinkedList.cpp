@@ -390,29 +390,50 @@ Node* getSamePlace2(Node* str1, Node* str2)
     return NULL;
 }
 
+/**
+ * 🟡归并
+ * 将两个有序(从小到大)的顺序表合并为一个.
+ * @param h1 单链表1
+ * @param h2 单链表2
+ * @return 归并成的单链表
+ */
+Node* merge(Node* h1, Node* h2)
+{
+    Node* p1 = h1->next;
+    Node* p2 = h2->next;
+    Node* tail = h1;
+
+    while (p1 && p2)
+    {
+        if (p1->data < p2->data)
+        {
+            tail->next = p1;
+            tail = p1;
+            p1 = p1->next;
+        }
+        else
+        {
+            tail->next = p2;
+            tail = p2;
+            p2 = p2->next;
+        }
+    }
+
+    tail->next = p1 ? p1 : p2;
+
+    return h1;
+}
+
 int main()
 {
-    // 创建带头结点的单链表
-    int common[2] = {7, 8};
-    Node* com = createByTail(common, 2);
-
-    int arr1[2] = {1, 2};
+    int arr1[2] = {1, 6};
     Node* str1 = createByTail(arr1, 2);
 
-    int arr2[3] = {3, 4, 5};
+    int arr2[3] = {0, 4, 5};
     Node* str2 = createByTail(arr2, 3);
 
-    str1->next->next->next = com->next;
-    str2->next->next->next->next = com->next;
-    free(com);
-
-    traverse(str1, "初始化单链表1：");
-    traverse(str2, "初始化单链表2：");
-
-
-    Node* place = getSamePlace2(str1, str2);
-    Node el = *place;
-    cout << "打印数据：" << el.data << endl;
+    Node* newStr = merge(str1, str2);
+    traverse(newStr, "归并后：");
 
     return 0;
 }
