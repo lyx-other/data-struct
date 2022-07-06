@@ -181,10 +181,77 @@ SeqStack infix2postfix(char infix[], int length)
     return resultStack;
 }
 
+/**
+ * 🟡利用栈将中缀表达式转换为前缀表达式
+ * @param infix 中缀表达式
+ * @param length 第一个元素的数据长度
+ * @return 转换出的结果栈
+ */
+SeqStack infix2prefix(char infix[], int length)
+{
+    // 准备工作
+    SeqStack resultStack; // 结果，遍历时要从栈顶开始遍历
+    SeqStack auxiliaryStack;
+
+    // 开始转换
+    for (int i = length-1; i >= 0; --i)
+    {
+        char el = infix[i];
+        if (el == ')')
+        {
+            push(el, auxiliaryStack);
+        }
+        else if (el == '(')
+        {
+            while (true)
+            {
+                char popEl = pop(auxiliaryStack);
+                if (popEl != '(' && popEl != ')')
+                {
+                    push(popEl, resultStack);
+                }
+
+                if (popEl == ')')
+                {
+                    break;
+                }
+            }
+        }
+        else if (el == '+' || el == '-' || el == '*' || el == '/')
+        {
+            while (true)
+            {
+                if (auxiliaryStack.top == -1 || auxiliaryStack.stack[auxiliaryStack.top] == ')' || (judgePriority(el, auxiliaryStack.stack[auxiliaryStack.top]) >= 0))
+                {
+                    push(el, auxiliaryStack);
+                    break;
+                }
+                else
+                {
+                    push(pop(auxiliaryStack), resultStack);
+                }
+            }
+        }
+        else
+        {
+            push(el, resultStack);
+        }
+    }
+    if (auxiliaryStack.top != -1)
+    {
+        while (auxiliaryStack.top != -1)
+        {
+            push(pop(auxiliaryStack), resultStack);
+        }
+    }
+
+    return resultStack;
+}
+
 int main()
 {
     char infix[] = {'a','+','b','-','a','*','(','(','c','+','d',')','/','e','-','f',')','+','g'};
-    SeqStack stack = infix2postfix(infix, sizeof(infix)/sizeof(infix[0]));
+    SeqStack stack = infix2prefix(infix, sizeof(infix) / sizeof(infix[0]));
 
-    traverseFromBottom(stack, "转换后");
+    traverseFromTop(stack, "转换后");
 }
