@@ -154,13 +154,7 @@ SeqStack infix2postfix(char infix[], int length)
         {
             while (true)
             {
-                if (auxiliaryStack.top == -1 || auxiliaryStack.stack[auxiliaryStack.top] == '(')
-                {
-                    push(el, auxiliaryStack);
-                    break;
-                }
-
-                if (judgePriority(el, auxiliaryStack.stack[auxiliaryStack.top]) > 0)
+                if (auxiliaryStack.top == -1 || auxiliaryStack.stack[auxiliaryStack.top] == '(' || (judgePriority(el, auxiliaryStack.stack[auxiliaryStack.top]) > 0))
                 {
                     push(el, auxiliaryStack);
                     break;
