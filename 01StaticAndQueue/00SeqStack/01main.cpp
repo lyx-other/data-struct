@@ -1,5 +1,4 @@
-#include "SeqStack.h"
-#include "method.h"
+#include "02head.h"
 
 int main()
 {

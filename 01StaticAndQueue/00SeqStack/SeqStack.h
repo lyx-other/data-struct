@@ -1,7 +1,5 @@
 #ifndef _SEQ_STACK_
 #define _SEQ_STACK_
-#include <iostream>
-using namespace std;
 
 /**
  * 顺序栈类

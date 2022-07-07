@@ -4,6 +4,7 @@
 int judgePriority(char, char);
 template<class T> SeqStack<T> infix2postfix(char[], int);
 template<class T> SeqStack<T> infix2prefix(char[], int);
+void calcSub(SeqStack<double>, SeqStack<char>);
 
 /**
  * 🟡利用栈将中缀表达式转换为前缀表达式
@@ -176,6 +177,11 @@ int judgePriority(char symbol1, char symbol2)
             return 0;
         }
     }
+}
+
+void calcSub(SeqStack<double> s1, SeqStack<char> s2)
+{
+
 }
 
 #endif
