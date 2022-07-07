@@ -5,7 +5,7 @@ int judgePriority(char, char);
 SeqStack<char> infix2postfix(char[], int);
 SeqStack<char> infix2prefix(char[], int);
 double calcInFix(char[], int);
-char calcSub(SeqStack<double>, SeqStack<char>);
+char calcSub(SeqStack<double>&, SeqStack<char>&);
 
 /**
  * 🟡利用栈将中缀表达式转换为前缀表达式
@@ -242,7 +242,7 @@ int judgePriority(char symbol1, char symbol2)
  * @param s2 s2栈
  * @return s2出栈的元素
  */
-char calcSub(SeqStack<double> s1, SeqStack<char> s2)
+char calcSub(SeqStack<double>& s1, SeqStack<char>& s2)
 {
     char symbol = s2.pop();
     if (symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/')
