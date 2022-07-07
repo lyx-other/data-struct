@@ -7,13 +7,21 @@ void test(Student s)
     s.setAge(996);
 }
 
+void test2(Student a[])
+{
+    a[0].setAge(99);
+}
+
 int main()
 {
     Student s1;
-    s1.setName("李艳兴");
-    s1.setAge(10);
+    s1.setAge(-1);
+    Student arr[3];
+    arr[0] = s1;
 
-    test(s1);
+    cout << "打印数据：" << arr[0].getAge() << endl;
 
-    cout << "打印数据：" << s1.getAge() << endl;
+    test2(arr);
+
+    cout << "打印数据：" << arr[0].getAge() << endl;
 }
