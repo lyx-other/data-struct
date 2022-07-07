@@ -191,7 +191,7 @@ double calcInFix(char infix[], int n)
             }
         }
     }
-    if (!s1.stackEmpty() || !s2.stackEmpty())
+    while (!s1.stackEmpty() && !s2.stackEmpty())
     {
         calcSub(s1,s2);
     }
@@ -268,7 +268,7 @@ char calcSub(SeqStack<double>& s1, SeqStack<char>& s2)
             if (firstPop < MIN)
             {
                 cout << "除数不能为0" << endl;
-                exit(-1);
+                exit(9);
             }
             result = secondPop / firstPop;
         }
