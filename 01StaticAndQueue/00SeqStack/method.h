@@ -2,8 +2,8 @@
 #define DATA_STRUCT_METHOD_H
 
 int judgePriority(char, char);
-template<class T> SeqStack<T> infix2postfix(char[], int);
-template<class T> SeqStack<T> infix2prefix(char[], int);
+SeqStack<char> infix2postfix(char[], int);
+SeqStack<char> infix2prefix(char[], int);
 void calcSub(SeqStack<double>, SeqStack<char>);
 
 /**
@@ -13,8 +13,7 @@ void calcSub(SeqStack<double>, SeqStack<char>);
  * @param length 第一个元素的数据长度
  * @return 转换出的结果栈
  */
-template<class T>
-SeqStack<T> infix2prefix(char infix[], int length)
+SeqStack<char> infix2prefix(char infix[], int length)
 {
     // 准备工作
     SeqStack<char> resultStack; // 结果，遍历时要从栈顶开始遍历
@@ -82,8 +81,7 @@ SeqStack<T> infix2prefix(char infix[], int length)
  * @param length 第一个元素的数据长度
  * @return 转换出的结果栈
  */
-template<class T>
-SeqStack<T> infix2postfix(char infix[], int length)
+SeqStack<char> infix2postfix(char infix[], int length)
 {
     // 准备工作
     SeqStack<char> resultStack; // 结果，要从栈底开始遍历
