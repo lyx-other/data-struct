@@ -1,10 +1,11 @@
-#ifndef DATA_STRUCT_METHOD_H
-#define DATA_STRUCT_METHOD_H
+#ifndef _METHOD_H_
+#define _METHOD_H_
 
 int judgePriority(char, char);
 SeqStack<char> infix2postfix(char[], int);
 SeqStack<char> infix2prefix(char[], int);
-void calcSub(SeqStack<double>, SeqStack<char>);
+double calcInFix(char[], int);
+char calcSub(SeqStack<double>, SeqStack<char>);
 
 /**
  * 🟡利用栈将中缀表达式转换为前缀表达式
@@ -143,6 +144,62 @@ SeqStack<char> infix2postfix(char infix[], int length)
 }
 
 /**
+ * 🟡利用栈计算中值表达式的值
+ * @param infix 中值表达式
+ * @param n 第一个参数的长度
+ * @return 计算结果
+ */
+double calcInFix(char infix[], int n)
+{
+    SeqStack<double> s1;
+    SeqStack<char> s2;
+
+    for(int i = 0; i <= n-1; i++)
+    {
+        char el = infix[i];
+
+        if (el >= '0' and el <= '9')
+        {
+            s1.push(el - '0');
+        }
+        else if (el == '(')
+        {
+            s2.push(el);
+        }
+        else if (el == ')')
+        {
+            while (true)
+            {
+                char popEl = calcSub(s1, s2);
+                if (popEl == '(')
+                {
+                    break;
+                }
+            }
+        }
+        else // 运算符
+        {
+            while (true)
+            {
+                if (s2.stackEmpty() || s2.getTop() == '(' || judgePriority(el,s2.getTop()) > 0)
+                {
+                    s2.push(el);
+                    break;
+                }
+
+                calcSub(s1, s2);
+            }
+        }
+    }
+    if (!s1.stackEmpty() || !s2.stackEmpty())
+    {
+        calcSub(s1,s2);
+    }
+
+    return s1.getTop();
+}
+
+/**
  * 🪓工具方法
  * 判断两个运算符的优先级.
  * @param symbol1 第一个运算符
@@ -177,9 +234,47 @@ int judgePriority(char symbol1, char symbol2)
     }
 }
 
-void calcSub(SeqStack<double> s1, SeqStack<char> s2)
+/**
+ * 🪓工具方法
+ * 用栈来计算中缀表达式的值时调用
+ * s1出栈两个操作数、s2栈出栈一个运算符，这三个元素进行一次运算，将运算结果重新压入s1栈，
+ * @param s1 s1栈
+ * @param s2 s2栈
+ * @return s2出栈的元素
+ */
+char calcSub(SeqStack<double> s1, SeqStack<char> s2)
 {
+    char symbol = s2.pop();
+    if (symbol == '+' || symbol == '-' || symbol == '*' || symbol == '/')
+    {
+        double firstPop =  s1.pop();
+        double secondPop =  s1.pop();
 
+        double result;
+        if (symbol == '+')
+        {
+            result = secondPop + firstPop;
+        }
+        else if (symbol == '-')
+        {
+            result = secondPop - firstPop;
+        }
+        else if (symbol == '*')
+        {
+            result = secondPop * firstPop;
+        }
+        else
+        {
+            if (firstPop < MIN)
+            {
+                cout << "除数不能为0" << endl;
+                exit(-1);
+            }
+            result = secondPop / firstPop;
+        }
+
+        s1.push(result);
+    }
 }
 
 #endif

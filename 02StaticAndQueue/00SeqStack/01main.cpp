@@ -2,8 +2,9 @@
 
 int main()
 {
-    char infix[] = {'a','+','b','-','a','*','(','(','c','+','d',')','/','e','-','f',')','+','g'};
-    SeqStack<char> result = infix2postfix(infix, sizeof(infix)/sizeof(infix[0]));
-    result.traverseFromBottom("遍历");
+    char infix[] = {'3','+','6'};
+    double result = calcInFix(infix, sizeof(infix)/sizeof(infix[0]));
+
+    cout << "打印数据：" << result << endl;
 }
 

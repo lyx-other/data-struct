@@ -1,5 +1,5 @@
-#ifndef _SEQ_STACK_
-#define _SEQ_STACK_
+#ifndef _SEQSTACK_H_
+#define _SEQSTACK_H_
 
 /**
  * 顺序栈类
