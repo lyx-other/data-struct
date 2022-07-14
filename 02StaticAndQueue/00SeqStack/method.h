@@ -6,6 +6,7 @@ SeqStack<char> infix2postfix(char[], int);
 SeqStack<char> infix2prefix(char[], int);
 double calcInFix(char[], int);
 char calcSub(SeqStack<double>&, SeqStack<char>&);
+double calcSub(double, double, char);
 
 /**
  * 🟡利用栈将中缀表达式转换为前缀表达式
@@ -144,7 +145,7 @@ SeqStack<char> infix2postfix(char infix[], int length)
 }
 
 /**
- * 🟡利用栈计算中值表达式的值
+ * 🟡利用栈计算中缀表达式的值
  * @param infix 中值表达式
  * @param n 第一个参数的长度
  * @return 计算结果
@@ -197,6 +198,63 @@ double calcInFix(char infix[], int n)
     }
 
     return s1.getTop();
+}
+
+/**
+ * 🟡利用栈计算后缀表达式的值
+ * @param exp 后缀表达式
+ * @param n   第一个参数的长度
+ * @return 计算结果
+ */
+double calcPostFix(char exp[], int n)
+{
+    SeqStack<double> s;
+    for (int i = 0; i <= n-1; ++i)
+    {
+        if (exp[i] >= '0' && exp[i] <= '9')
+        {
+            s.push(exp[i] - '0');
+        }
+        else
+        {
+            double result = calcSub(s.pop() - '0', s.pop() - '0', exp[i]);
+            s.push(result);
+        }
+    }
+
+    return s.pop();
+}
+
+/**
+ * 🪓工具方法，
+ * 计算出栈的两个数，第一个出栈的在右边，第二个出栈的在左边.
+ * @param num1 第一个出栈的数
+ * @param num2 第二个出栈的数
+ * @param op 操作符
+ * @return 计算结果
+ */
+double calcSub(double num1, double num2, char op)
+{
+    if (op == '+')
+    {
+        return num2 + num1;
+    }
+    else if (op == '-')
+    {
+        return num2 - num1;
+    }
+    else if (op == '*')
+    {
+        return num2 * num1;
+    }
+    else
+    {
+        if (num1 < MIN)
+        {
+            throw "0不能作为除数";
+        }
+        return num2 / num1;
+    }
 }
 
 /**
