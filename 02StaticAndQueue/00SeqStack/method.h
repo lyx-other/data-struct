@@ -7,6 +7,8 @@ SeqStack<char> infix2prefix(char[], int);
 double calcInFix(char[], int);
 char calcSub(SeqStack<double>&, SeqStack<char>&);
 double calcSub(double, double, char);
+double calcPreFix(char[], int);
+double calcSubNormal(double, double, char);
 
 /**
  * 🟡利用栈将中缀表达式转换为前缀表达式
@@ -201,6 +203,36 @@ double calcInFix(char infix[], int n)
 }
 
 /**
+ * 🟡利用栈计算前缀表达式的值
+ * @param exp 前缀表达式
+ * @param n 第一个参数的长度
+ * @return 计算结果
+ */
+double calcPreFix(char exp[], int n)
+{
+    SeqStack<double> s;
+
+    for (int i = n-1; i >= 0; --i)
+    {
+        char el = exp[i];
+        if (el >= '0' && el <= '9')
+        {
+            s.push(el-'0');
+        }
+        else
+        {
+            double num1 = s.pop();
+            double num2 = s.pop();
+
+            double result = calcSubNormal(num1, num2, el);
+            s.push(result);
+        }
+    }
+
+    return s.pop();
+}
+
+/**
  * 🟡利用栈计算后缀表达式的值
  * @param exp 后缀表达式
  * @param n   第一个参数的长度
@@ -256,6 +288,39 @@ double calcSub(double num1, double num2, char op)
         return num2 / num1;
     }
 }
+
+/**
+ * 🪓工具方法，
+ * 计算出栈的两个数，第一个出栈的在左边，第二个出栈的在右边.
+ * @param num1 第一个出栈的数
+ * @param num2 第二个出栈的数
+ * @param op 操作符
+ * @return 计算结果
+ */
+double calcSubNormal(double num1, double num2, char op)
+{
+    if (op == '+')
+    {
+        return num2 + num1;
+    }
+    else if (op == '-')
+    {
+        return num1 - num2;
+    }
+    else if (op == '*')
+    {
+        return num2 * num1;
+    }
+    else
+    {
+        if (num2 < MIN)
+        {
+            throw "0不能作为除数";
+        }
+        return num1 / num2;
+    }
+}
+
 
 /**
  * 🪓工具方法
