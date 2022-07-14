@@ -2,26 +2,25 @@
 using namespace std;
 #include "Student.h"
 
-void test(Student s)
+int getNum1()
 {
-    s.setAge(996);
+    cout << "打印数据：" << "1111" << endl;
+    return 1;
 }
 
-void test2(Student a[])
+int getNum2()
 {
-    a[0].setAge(99);
+    cout << "打印数据：" << "2222" << endl;
+    return 1;
+}
+
+
+int add(int num1, int num2)
+{
+    return num1 + num2;
 }
 
 int main()
 {
-    Student s1;
-    s1.setAge(-1);
-    Student arr[3];
-    arr[0] = s1;
-
-    cout << "打印数据：" << arr[0].getAge() << endl;
-
-    test2(arr);
-
-    cout << "打印数据：" << arr[0].getAge() << endl;
+    add(getNum1(), getNum2());
 }
