@@ -249,7 +249,9 @@ double calcPostFix(char exp[], int n)
         }
         else
         {
-            double result = calcSub(s.pop() - '0', s.pop() - '0', exp[i]);
+            double num1 = s.pop(); // 注意：num1，num2 两个变量不可以省略然后真把s.pop()放到形参中，因为这里有两个出栈，放到形参中，是后边的先执行，而不是前边的先执行.
+            double num2 = s.pop();
+            double result = calcSub(num1, num2, exp[i]);
             s.push(result);
         }
     }

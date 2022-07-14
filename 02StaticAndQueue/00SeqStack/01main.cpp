@@ -2,8 +2,8 @@
 
 int main()
 {
-    char infix[] = {'/','+','*','3','4', '3', '2'};
-    double result = calcPreFix(infix, sizeof(infix)/sizeof(infix[0]));
+    char infix[] = {'3','4','*','3','+', '2', '/'};
+    double result = calcPostFix(infix, sizeof(infix)/sizeof(infix[0]));
 
     cout << "打印数据：" << result << endl;
 }
